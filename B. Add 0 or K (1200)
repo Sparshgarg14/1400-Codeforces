@@ -1,0 +1,148 @@
+import java.io.*;
+import java.util.*;
+
+//The Problem statement
+/*
+
+
+ */
+
+
+//Small observations in the question
+/*
+At most k operations
+gcd(a1,a2,...an)>1
+
+what am I doing when I m adding k each time ,
+k + k + k + k + k.. k times
+(k-1 + 1) + (k-1 + 1) + ....(k-1) times
+I m able to make it divisible by k-1 which is greater than 1 , so getting k *(k-1 - arr[i]%(k-1))
+ */
+
+
+//Algo that can be claimed
+/*
+
+ */
+
+
+
+public class Codeforces {
+    static final int mod = 1000000;
+
+    public static void main(String[] args) throws IOException {
+        FastReader fr = new FastReader();
+        int t = fr.nextInt();
+
+        while (t-- > 0) {
+            long n = fr.nextLong();
+            long k =fr.nextLong();
+            long arr[] = new long[(int)n];
+            for (int i = 0; i < n; i++) {
+                arr[i] = fr.nextInt();
+            }
+            if(k==1){
+                for (int i = 0; i < n; i++) {
+                    if(arr[i]%2!=0)System.out.print((arr[i]+1) + " ");
+                    else System.out.print(arr[i] + " ");
+                }
+                System.out.println();
+                continue;
+            }
+            if(k==2){
+//              make it divisible by 3
+                for (int i = 0; i < n; i++) {
+                    if(arr[i]%3==0) System.out.print(arr[i] + " ");
+                    else{
+                        if(arr[i]%3==2) System.out.print((arr[i] + 2*2) + " ");
+                        else System.out.print((arr[i] + 2) + " ");
+                    }
+                }
+                System.out.println();
+                continue;
+            }
+
+                for (int i = 0; i < n; i++) {
+                   System.out.print((k)*(k-1-(arr[i]%(k-1)))+arr[i] +  " ");
+                }
+
+            System.out.println();
+
+        }
+    }
+
+    //  Binary Exponentiation (modular fast power)
+    static long binPow(long a, int b) {
+        long res = 1;
+        while (b > 0) {
+            if ((b & 1) == 1) res = res * a % mod;
+            a = a * a % mod;
+            b >>= 1;
+        }
+        return res;
+    }
+
+    public static class Pair {
+        public int a, b;
+        Pair(int a, int b) {
+            this.a = a;
+            this.b = b;
+        }
+        @Override
+        public String toString() {
+            return a + " -> " + b;
+        }
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Pair that = (Pair) o;
+            return a == that.a && b == that.b;
+        }
+    }
+}
+
+class FastReader {
+    BufferedReader br;
+    StringTokenizer st;
+
+    public FastReader() {
+        br = new BufferedReader(new InputStreamReader(System.in));
+    }
+
+    String next() {
+        while (st == null || !st.hasMoreElements()) {
+            try {
+                String line = br.readLine();
+                if (line == null) return null;
+                st = new StringTokenizer(line);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return st.nextToken();
+    }
+
+    int nextInt() {
+        return Integer.parseInt(next());
+    }
+
+    long nextLong() {
+        return Long.parseLong(next());
+    }
+
+    double nextDouble() {
+        return Double.parseDouble(next());
+    }
+
+    String nextLine() {
+        String str = "";
+        try {
+            if (st.hasMoreTokens()) str = st.nextToken("\n");
+            else str = br.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+}
