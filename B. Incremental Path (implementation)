@@ -1,0 +1,173 @@
+import java.io.*;
+import java.util.*;
+
+
+
+
+public class Codeforces {
+    static final int mod = 1000000;
+//The problems are easy and if I m not going anywhere with some solution, come back, think again from basic facts and logic
+//    try to see if the process is good when working in reverse(reverse numbers from 1-n) and think of parity
+//    even first or odd first to print
+//The Problem statement
+ /*
+ a strip - 10^9 cells either black or white initially m are black - 10^9-m white
+ ops  - jump to the next cell of jump to the white cell
+I ll start at i=1 till 10^9 , I ll execute the commands , every cell I visit , I ll paint it black
+lets say white -0 and and black =1
+n is number of persons who perform ops
+
+ */
+
+
+//Small observations in the question
+    /*
+     if n==m print me the complete set
+          have to colour only one black that is the last element I step on
+     */
+
+
+//Algo that can be claimed
+    /*
+
+     */
+
+
+    public static void main(String[] args) throws IOException {
+        FastReader fr = new FastReader();
+        int t = fr.nextInt();
+        while (t-- > 0) {
+            int n   = fr.nextInt();
+            int m =fr.nextInt();
+            String s = fr.next();
+            TreeSet<Integer>set  =new TreeSet<>();
+            for (int i = 0; i < m; i++) {
+                int x = fr.nextInt();
+                set.add(x);
+            }
+
+            int idx=0;
+             int cur=1;
+            for (char c :s.toCharArray()) {
+                cur++;
+                if (c == 'B') {
+                    while (set.contains(cur)) cur++;
+                }
+                set.add(cur);
+                if (c == 'B') {
+                    while (set.contains(cur)) cur++;
+                }
+            }
+            System.out.println(set.size());
+              for(int i :set){
+                  System.out.print(i + " ");
+            }
+            System.out.println();
+
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    public static void Swap(int i , int j ){
+        int temp=0;
+        i =j;
+
+    }
+    // Function to compute GCD of two numbers
+    public static long gcd(long a, long b) {
+        while (b != 0) {
+            long temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+
+
+
+    //  Binary Exponentiation (modular fast power)
+    static long binPow(long a, int b) {
+        long res = 1;
+        while (b > 0) {
+            if ((b & 1) == 1) res = res * a % mod;
+            a = a * a % mod;
+            b >>= 1;
+        }
+        return res;
+    }
+
+    public static class Pair {
+        public int a, b;
+        Pair(int a, int b) {
+            this.a = a;
+            this.b = b;
+        }
+        @Override
+        public String toString() {
+            return a + " -> " + b;
+        }
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Pair that = (Pair) o;
+            return a == that.a && b == that.b;
+        }
+    }
+}
+
+class FastReader {
+    BufferedReader br;
+    StringTokenizer st;
+
+    public FastReader() {
+        br = new BufferedReader(new InputStreamReader(System.in));
+    }
+
+    String next() {
+        while (st == null || !st.hasMoreElements()) {
+            try {
+                String line = br.readLine();
+                if (line == null) return null;
+                st = new StringTokenizer(line);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return st.nextToken();
+    }
+
+    int nextInt() {
+        return Integer.parseInt(next());
+    }
+
+    long nextLong() {
+        return Long.parseLong(next());
+    }
+
+    double nextDouble() {
+        return Double.parseDouble(next());
+    }
+
+    String nextLine() {
+        String str = "";
+        try {
+            if (st.hasMoreTokens()) str = st.nextToken("\n");
+            else str = br.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+}
