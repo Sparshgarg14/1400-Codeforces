@@ -1,0 +1,203 @@
+import java.io.*;
+import java.util.*;
+
+
+
+
+public class Codeforces {
+    static final int mod = 1000000;
+//The problems are easy and if I m not going anywhere with some solution, come back, think again from basic facts and logic
+//    try to see if the process is good when working in reverse(reverse numbers from 1-n) and think of parity
+//    even first or odd first to print
+//    try to make generalized cases - aaaa...bbbb...a a a b bb a ..a.. at the end what I need to do ultimately
+//The Problem statement
+ /*
+nxn grid with the arrows pointing in up down left or right , if gets the instruction to go out of the grid he wins
+he wants to win in the those k cells
+
+ */
+
+
+//Small observations in the question
+    /*
+        to make him escape the boundary I ll have to make him closer to the edge then he can escape
+        basically what I thought was lets just iterate the values of k, and make the code like at first i have a grid that doesnt allow me from any number of cells that is zero cells
+        , now what the task will be is like I would iterate the number of k's , and with respect to the number of increasing k's I will have to increase the number of cells that will allow me
+        to escape from the grid
+    */
+
+
+//Algo that can be claimed
+    /*
+
+     */
+
+
+    public static void main(String[] args) throws IOException {
+        FastReader fr = new FastReader();
+        int t = fr.nextInt();
+        while (t-- > 0) {
+
+          int n   = fr.nextInt();
+          int k = fr.nextInt();
+          if(k==(n*n-1)){
+              System.out.println("NO");
+              continue;
+          }
+            System.out.println("YES");
+          char grid[][] = new char[n][n];
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    grid[i][j] = 'R';
+                }
+            }
+            for (int i = 0; i < n; i++) {
+                grid[i][n-1] = 'L';
+            }
+
+            int row = n-1;
+            int col = n-1;
+            for (int i = 0; i < k; i++) {
+//                if(row==0 && col< n-1 ){
+//                    grid[row][col] = 'L';
+//                    if(col-1>=0)grid[row][col-1] ='R';
+//                }
+               if(row>0 && col>=0 ) grid[row][col] = 'R';
+               if(row>0 && col-1>=0 )grid[row][col-1] = 'U';
+               col--;
+                if(col<0){
+                    row--;
+                    col = n-1;
+                }
+            }
+//            for (int i = 0; i < n; i++) {
+//                for (int j = 0; j < n; j++) {
+//                    System.out.print(grid[i][j]);
+//                }
+//                System.out.println();
+//            }
+            int res = k - (n*n-n);
+            if(res>0){
+
+                int row1 =0;
+                int col1 = n-1;
+                for (int i = 0; i < res; i++) {
+                    if(col1>=0)grid[row1][col1] = 'R';
+                    if(col1-1>=0)grid[row1][col1-1] = 'L';
+                    col1--;
+                }
+            }
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    System.out.print(grid[i][j]);
+                }
+                System.out.println();
+            }
+
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    public static void Swap(int i , int j ){
+        int temp=0;
+        i =j;
+
+    }
+    // Function to compute GCD of two numbers
+    public static long gcd(long a, long b) {
+        while (b != 0) {
+            long temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+
+
+
+    //  Binary Exponentiation (modular fast power)
+    static long binPow(long a, int b) {
+        long res = 1;
+        while (b > 0) {
+            if ((b & 1) == 1) res = res * a % mod;
+            a = a * a % mod;
+            b >>= 1;
+        }
+        return res;
+    }
+
+    public static class Pair {
+        public int a, b;
+        Pair(int a, int b) {
+            this.a = a;
+            this.b = b;
+        }
+        @Override
+        public String toString() {
+            return a + " -> " + b;
+        }
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Pair that = (Pair) o;
+            return a == that.a && b == that.b;
+        }
+    }
+}
+
+class FastReader {
+    BufferedReader br;
+    StringTokenizer st;
+
+    public FastReader() {
+        br = new BufferedReader(new InputStreamReader(System.in));
+    }
+
+    String next() {
+        while (st == null || !st.hasMoreElements()) {
+            try {
+                String line = br.readLine();
+                if (line == null) return null;
+                st = new StringTokenizer(line);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return st.nextToken();
+    }
+
+    int nextInt() {
+        return Integer.parseInt(next());
+    }
+
+    long nextLong() {
+        return Long.parseLong(next());
+    }
+
+    double nextDouble() {
+        return Double.parseDouble(next());
+    }
+
+    String nextLine() {
+        String str = "";
+        try {
+            if (st.hasMoreTokens()) str = st.nextToken("\n");
+            else str = br.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+}
